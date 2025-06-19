@@ -31,7 +31,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=10,
-        choices=StatusChoices.choices
+        choices=StatusChoices.choices,
         default=StatusChoices.PENDING
     )
 
@@ -47,4 +47,6 @@ class OrderItem(models.Model):
     @property
     def item_subtotal(self):
         return self.product.price * self.quantity
-
+    
+    def __str__(self):
+        return f"{self.quantity} X {self.product.name} in Order {self.order.order_id}"
